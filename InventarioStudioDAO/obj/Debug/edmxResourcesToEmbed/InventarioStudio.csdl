@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbInventariosStudioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cita">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSala" Type="Int32" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Cel" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FechaHoraInico" Type="DateTime" Precision="3" />
+    <Property Name="FechaHoraFin" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Sala" Relationship="Self.FK_Cita_Sala" FromRole="Cita" ToRole="Sala" />
+    <Property Name="Correo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Inventario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTipo" Type="Int32" Nullable="false" />
+    <Property Name="IdSala" Type="Int32" Nullable="false" />
+    <Property Name="Marca" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Procesador" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DiscoDuro" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Ram" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Serial" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Observacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Sala" Relationship="Self.FK_Inventario_Sala" FromRole="Inventario" ToRole="Sala" />
+    <NavigationProperty Name="Tipo" Relationship="Self.FK_Inventario_Tipo" FromRole="Inventario" ToRole="Tipo" />
+  </EntityType>
+  <EntityType Name="Sala">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="Observacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cita" Relationship="Self.FK_Cita_Sala" FromRole="Sala" ToRole="Cita" />
+    <NavigationProperty Name="Inventario" Relationship="Self.FK_Inventario_Sala" FromRole="Sala" ToRole="Inventario" />
+    <NavigationProperty Name="Usuario" Relationship="DbInventariosStudioModel.FK_Sala_Usuario" FromRole="Sala" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EsComputador" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Inventario" Relationship="Self.FK_Inventario_Tipo" FromRole="Tipo" ToRole="Inventario" />
+  </EntityType>
+  <Association Name="FK_Cita_Sala">
+    <End Role="Sala" Type="Self.Sala" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sala">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventario_Sala">
+    <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sala">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventario_Tipo">
+    <End Role="Tipo" Type="Self.Tipo" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbInventariosStudioEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cita" EntityType="Self.Cita" />
+    <EntitySet Name="Inventario" EntityType="Self.Inventario" />
+    <EntitySet Name="Sala" EntityType="Self.Sala" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Tipo" EntityType="Self.Tipo" />
+    <AssociationSet Name="FK_Cita_Sala" Association="Self.FK_Cita_Sala">
+      <End Role="Sala" EntitySet="Sala" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventario_Sala" Association="Self.FK_Inventario_Sala">
+      <End Role="Sala" EntitySet="Sala" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventario_Tipo" Association="Self.FK_Inventario_Tipo">
+      <End Role="Tipo" EntitySet="Tipo" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <EntitySet Name="Usuario" EntityType="DbInventariosStudioModel.Usuario" />
+    <AssociationSet Name="FK_Sala_Usuario" Association="DbInventariosStudioModel.FK_Sala_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Sala" EntitySet="Sala" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cedula" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="NombreArtistico" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Rol" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Sala" Relationship="DbInventariosStudioModel.FK_Sala_Usuario" FromRole="Usuario" ToRole="Sala" />
+  </EntityType>
+  <Association Name="FK_Sala_Usuario">
+    <End Type="DbInventariosStudioModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="DbInventariosStudioModel.Sala" Role="Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sala">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

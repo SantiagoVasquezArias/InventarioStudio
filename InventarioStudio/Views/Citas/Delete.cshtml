@@ -1,0 +1,92 @@
+﻿@model InventarioStudioDAO.Cita
+
+@{
+    ViewBag.Title = "Eliminar cita";
+}
+
+
+
+<h2 class="text-center alert-danger">Eliminar</h2>
+
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHoraInico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHoraInico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHoraFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHoraFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sala.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sala.Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Salir", "Index", new { }, new { @class = "btn btn-info" })
+                <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return ConfirmacionMensaje()"/>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+            function ConfirmacionMensaje() {
+
+                return confirm("Esta seguro que desea eliminar la cita.");
+
+            };
+        </script>
+
+
+    }
+</div>

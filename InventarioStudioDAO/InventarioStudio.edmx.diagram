@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bc435f698bbd497fb41bf14ecf96de9d" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="DbInventariosStudioModel.Cita" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbInventariosStudioModel.Inventario" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbInventariosStudioModel.Sala" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbInventariosStudioModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbInventariosStudioModel.Tipo" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DbInventariosStudioModel.FK_Cita_Sala" ManuallyRouted="false" />
+        <AssociationConnector Association="DbInventariosStudioModel.FK_Inventario_Sala" ManuallyRouted="false" />
+        <AssociationConnector Association="DbInventariosStudioModel.FK_Inventario_Tipo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbInventariosStudioModel.Usuario" Width="1.5" PointX="0.75" PointY="3.5" />
+        <AssociationConnector Association="DbInventariosStudioModel.FK_Sala_Usuario" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,81 @@
+﻿@model InventarioStudioDAO.Usuario
+
+@{
+    ViewBag.Title = "Eliminar Usuario";
+}
+
+<div>
+    <h2 class="text-center alert-danger">Eliminar</h2>
+    
+    <div>
+      
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Cedula)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cedula)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreArtistico)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreArtistico)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rol)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rol)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Salir", "Index", new { }, new { @class = "btn btn-info" })
+                    <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return ConfirmacionMensaje()" />
+                </div>   
+            </div>
+        }
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+            function ConfirmacionMensaje() {
+
+                return confirm("Esta seguro que desea eliminar el usuario.");
+
+            };
+        </script>
+
+
+    }
+</div>

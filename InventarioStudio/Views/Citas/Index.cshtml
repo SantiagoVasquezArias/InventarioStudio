@@ -1,0 +1,67 @@
+﻿@model IEnumerable<InventarioStudioDAO.Cita>
+
+@{
+    ViewBag.Title = "Citas";
+}
+
+<div class="container">
+    <h2 class="text-center">Sesión de estudio</h2>
+
+    <p>
+        @Html.ActionLink("Agregar", "Create", new { }, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHoraInico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHoraFin)
+            </th>
+            <th>
+                
+                @Html.DisplayNameFor(model => model.Sala.Nombre)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHoraInico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHoraFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sala.Nombre)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

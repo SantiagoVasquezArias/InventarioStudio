@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbInventariosStudioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cita">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSala" Type="int" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="250" />
+    <Property Name="Cel" Type="nvarchar" MaxLength="250" />
+    <Property Name="FechaHoraInico" Type="datetime" />
+    <Property Name="FechaHoraFin" Type="date" />
+    <Property Name="Correo" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Inventario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdTipo" Type="int" Nullable="false" />
+    <Property Name="IdSala" Type="int" Nullable="false" />
+    <Property Name="Marca" Type="nvarchar" MaxLength="250" />
+    <Property Name="Procesador" Type="nvarchar" MaxLength="250" />
+    <Property Name="DiscoDuro" Type="nvarchar" MaxLength="250" />
+    <Property Name="Ram" Type="nvarchar" MaxLength="250" />
+    <Property Name="Serial" Type="nvarchar" MaxLength="250" />
+    <Property Name="Observacion" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Sala">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="Observacion" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="EsComputador" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Apellido" Type="nvarchar" MaxLength="250" />
+    <Property Name="NombreArtistico" Type="nvarchar" MaxLength="250" />
+    <Property Name="Rol" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Cita_Sala">
+    <End Role="Sala" Type="Self.Sala" Multiplicity="0..1" />
+    <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sala">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventario_Sala">
+    <End Role="Sala" Type="Self.Sala" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sala">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="IdSala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inventario_Tipo">
+    <End Role="Tipo" Type="Self.Tipo" Multiplicity="1" />
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inventario">
+        <PropertyRef Name="IdTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sala_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Sala" Type="Self.Sala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sala">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbInventariosStudioModelStoreContainer">
+    <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sala" EntityType="Self.Sala" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cita_Sala" Association="Self.FK_Cita_Sala">
+      <End Role="Sala" EntitySet="Sala" />
+      <End Role="Cita" EntitySet="Cita" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventario_Sala" Association="Self.FK_Inventario_Sala">
+      <End Role="Sala" EntitySet="Sala" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inventario_Tipo" Association="Self.FK_Inventario_Tipo">
+      <End Role="Tipo" EntitySet="Tipo" />
+      <End Role="Inventario" EntitySet="Inventario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sala_Usuario" Association="Self.FK_Sala_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Sala" EntitySet="Sala" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
